@@ -1294,17 +1294,13 @@
                 </div>
               </div>
 
-              <div class="reveal d2">
-                <!-- Aap ki email direct action URL ke end mein inject kar di hai -->
+            <div class="reveal d2">
+                <!-- Form ki ID 'contactForm' rakh di hai aur action wahi aap ki email hai -->
                 <form
+                  id="contactForm"
                   action="https://formsubmit.co/mashaiemnadeemryk2007@gmail.com"
                   method="POST"
                 >
-                  <!-- Redirect Page: Submit hone ke baad user is page par wapis ajayega -->
-    <input type="hidden" name="_next" value="index.html">
-    
-    <!-- Captcha Bypass: Is se robot check/captcha off ho jata hai -->
-    <input type="hidden" name="_captcha" value="false">
                   <div class="flex flex-col gap-4">
                     <div class="grid sm:grid-cols-2 gap-4">
                       <div>
@@ -1370,7 +1366,7 @@
                       ></textarea>
                     </div>
 
-                    <!-- Anti-Spam HoneyPot (Bots ko rokne ke liye) -->
+                    <!-- Anti-Spam HoneyPot -->
                     <input
                       type="text"
                       name="_blackhole"
@@ -1379,6 +1375,7 @@
 
                     <button
                       type="submit"
+                      id="submitBtn"
                       class="shimmer w-full bg-accent text-white font-display font-bold text-sm py-3.5 rounded-xl hover:bg-accent-light transition-colors"
                     >
                       Send message →
@@ -1386,6 +1383,55 @@
                   </div>
                 </form>
               </div>
+
+              <!-- Chota sa Script block jo page ko redirect nahi hone dega aur backend pe data POST karega -->
+              <script>
+                document
+                  .getElementById("contactForm")
+                  .addEventListener("submit", function (e) {
+                    e.preventDefault(); // Default redirect ko rokne ke liye
+
+                    const form = this;
+                    const button = document.getElementById("submitBtn");
+                    const originalText = button.innerHTML;
+
+                    // Button state changing to loading
+                    button.disabled = true;
+                    button.innerHTML = "Sending...";
+
+                    const formData = new FormData(form);
+
+                    fetch(form.action, {
+                      method: "POST",
+                      body: formData,
+                      headers: {
+                        Accept: "application/json",
+                      },
+                    })
+                      .then((response) => {
+                        if (response.ok) {
+                          button.innerHTML = "Message Sent Successfully! ✓";
+                          button.style.backgroundColor = "#10B981"; // Green color on success
+                          form.reset(); // Clear inputs
+
+                          // 3 seconds baad button wapas normal state mein ajayega
+                          setTimeout(() => {
+                            button.disabled = false;
+                            button.innerHTML = originalText;
+                            button.style.backgroundColor = "";
+                          }, 3000);
+                        } else {
+                          throw new Error("Form submission failed");
+                        }
+                      })
+                      .catch((error) => {
+                        button.disabled = false;
+                        button.innerHTML = "Error! Try Again.";
+                        button.style.backgroundColor = "#EF4444"; // Red color on error
+                      });
+                  });
+              </script>
+            </div>
             </div>
           </div>
         </div>
