@@ -1294,144 +1294,90 @@
                 </div>
               </div>
 
-            <div class="reveal d2">
-                <!-- Form ki ID 'contactForm' rakh di hai aur action wahi aap ki email hai -->
-                <form
-                  id="contactForm"
-                  action="https://formsubmit.co/mashaiemnadeemryk2007@gmail.com"
-                  method="POST"
-                >
-                  <div class="flex flex-col gap-4">
-                    <div class="grid sm:grid-cols-2 gap-4">
-                      <div>
-                        <label
-                          for="fname"
-                          class="block text-xs font-medium text-zinc-400 mb-1.5"
-                          >Name <span aria-hidden="true">*</span></label
-                        >
-                        <input
-                          type="text"
-                          id="fname"
-                          name="name"
-                          placeholder="Jane Smith"
-                          required
-                          autocomplete="name"
-                          class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors"
-                        />
-                      </div>
-                      <div>
-                        <label
-                          for="femail"
-                          class="block text-xs font-medium text-zinc-400 mb-1.5"
-                          >Email <span aria-hidden="true">*</span></label
-                        >
-                        <input
-                          type="email"
-                          id="femail"
-                          name="email"
-                          placeholder="jane@company.com"
-                          required
-                          autocomplete="email"
-                          class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label
-                        for="fsubject"
-                        class="block text-xs font-medium text-zinc-400 mb-1.5"
-                        >Subject</label
-                      >
-                      <input
-                        type="text"
-                        id="fsubject"
-                        name="subject"
-                        placeholder="Project inquiry"
-                        class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        for="fmessage"
-                        class="block text-xs font-medium text-zinc-400 mb-1.5"
-                        >Message <span aria-hidden="true">*</span></label
-                      >
-                      <textarea
-                        id="fmessage"
-                        name="message"
-                        rows="4"
-                        placeholder="Tell me about your project..."
-                        required
-                        class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors resize-none"
-                      ></textarea>
-                    </div>
+           <div class="reveal d2">
+  <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+    
+    <input type="hidden" name="access_key" value="34a72748-cfec-4360-bb3b-9737e04dd700">
+    
+    <input type="hidden" name="subject" value="New Message from Portfolio">
+    <input type="hidden" name="redirect" value="">
 
-                    <!-- Anti-Spam HoneyPot -->
-                    <input
-                      type="text"
-                      name="_blackhole"
-                      style="display: none"
-                    />
+    <div class="flex flex-col gap-4">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label for="fname" class="block text-xs font-medium text-zinc-400 mb-1.5">Name <span aria-hidden="true">*</span></label>
+          <input type="text" id="fname" name="name" placeholder="Jane Smith" required autocomplete="name"
+            class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors">
+        </div>
+        <div>
+          <label for="femail" class="block text-xs font-medium text-zinc-400 mb-1.5">Email <span aria-hidden="true">*</span></label>
+          <input type="email" id="femail" name="email" placeholder="jane@company.com" required autocomplete="email"
+            class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors">
+        </div>
+      </div>
+      <div>
+        <label for="fsubject" class="block text-xs font-medium text-zinc-400 mb-1.5">Subject</label>
+        <input type="text" id="fsubject" name="custom_subject" placeholder="Project inquiry"
+          class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors">
+      </div>
+      <div>
+        <label for="fmessage" class="block text-xs font-medium text-zinc-400 mb-1.5">Message <span aria-hidden="true">*</span></label>
+        <textarea id="fmessage" name="message" rows="4" placeholder="Tell me about your project..." required
+          class="w-full bg-zinc-800 border border-zinc-700 text-white text-sm rounded-xl px-4 py-3 placeholder-zinc-600 focus:outline-none focus:border-accent transition-colors resize-none"></textarea>
+      </div>
+      
+      <button type="submit" id="submitBtn" class="shimmer w-full bg-accent text-white font-display font-bold text-sm py-3.5 rounded-xl hover:bg-accent-light transition-colors">
+        Send message →
+      </button>
+    </div>
+  </form>
+</div>
 
-                    <button
-                      type="submit"
-                      id="submitBtn"
-                      class="shimmer w-full bg-accent text-white font-display font-bold text-sm py-3.5 rounded-xl hover:bg-accent-light transition-colors"
-                    >
-                      Send message →
-                    </button>
-                  </div>
-                </form>
-              </div>
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Browser redirect ko rokne ke liye
+    
+    const form = this;
+    const button = document.getElementById('submitBtn');
+    const originalText = button.innerHTML;
+    
+    button.disabled = true;
+    button.innerHTML = "Sending...";
 
-              <!-- Chota sa Script block jo page ko redirect nahi hone dega aur backend pe data POST karega -->
-              <script>
-                document
-                  .getElementById("contactForm")
-                  .addEventListener("submit", function (e) {
-                    e.preventDefault(); // Default redirect ko rokne ke liye
+    const formData = new FormData(form);
+    const json = JSON.stringify(Object.fromEntries(formData));
 
-                    const form = this;
-                    const button = document.getElementById("submitBtn");
-                    const originalText = button.innerHTML;
-
-                    // Button state changing to loading
-                    button.disabled = true;
-                    button.innerHTML = "Sending...";
-
-                    const formData = new FormData(form);
-
-                    fetch(form.action, {
-                      method: "POST",
-                      body: formData,
-                      headers: {
-                        Accept: "application/json",
-                      },
-                    })
-                      .then((response) => {
-                        if (response.ok) {
-                          button.innerHTML = "Message Sent Successfully! ✓";
-                          button.style.backgroundColor = "#10B981"; // Green color on success
-                          form.reset(); // Clear inputs
-
-                          // 3 seconds baad button wapas normal state mein ajayega
-                          setTimeout(() => {
-                            button.disabled = false;
-                            button.innerHTML = originalText;
-                            button.style.backgroundColor = "";
-                          }, 3000);
-                        } else {
-                          throw new Error("Form submission failed");
-                        }
-                      })
-                      .catch((error) => {
-                        button.disabled = false;
-                        button.innerHTML = "Error! Try Again.";
-                        button.style.backgroundColor = "#EF4444"; // Red color on error
-                      });
-                  });
-              </script>
-            </div>
+    fetch(form.action, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: json
+    })
+    .then(async (response) => {
+      let res = await response.json();
+      if (response.status == 200) {
+        button.innerHTML = "Message Sent Successfully! ✓";
+        button.style.backgroundColor = "#10B981"; // Success par green color
+        form.reset(); // Inputs clear karne ke liye
+        
+        setTimeout(() => {
+          button.disabled = false;
+          button.innerHTML = originalText;
+          button.style.backgroundColor = ""; 
+        }, 3000);
+      } else {
+        throw new Error(res.message);
+      }
+    })
+    .catch(error => {
+      button.disabled = false;
+      button.innerHTML = "Error! Try Again.";
+      button.style.backgroundColor = "#EF4444"; // Error par red color
+    });
+  });
+</script>
             </div>
           </div>
         </div>
